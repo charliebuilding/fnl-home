@@ -1,0 +1,344 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FNL Projects Hub</title>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-primary: #0a0a0f;
+            --bg-card: #1a1a24;
+            --bg-hover: #22222e;
+            --border: #2a2a38;
+            --text-primary: #f0f0f5;
+            --text-secondary: #9090a0;
+            --text-muted: #606070;
+            --accent-cyan: #00ffd1;
+            --accent-pink: #ff006b;
+            --accent-yellow: #ffd700;
+            --accent-purple: #9966ff;
+            --accent-green: #00ff88;
+        }
+
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+
+        body {
+            font-family: 'Space Grotesk', sans-serif;
+            background: var(--bg-primary);
+            color: var(--text-primary);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 2rem;
+        }
+
+        .container {
+            max-width: 900px;
+            width: 100%;
+        }
+
+        /* Header */
+        .header {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+
+        .logo {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 0.25rem;
+            margin-bottom: 1rem;
+        }
+
+        .logo-text {
+            font-size: 0.7rem;
+            font-weight: 700;
+            letter-spacing: 0.3em;
+            color: var(--text-muted);
+            text-transform: uppercase;
+        }
+
+        .logo-main {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            font-size: 2.5rem;
+            font-weight: 700;
+            letter-spacing: -0.02em;
+            line-height: 1.1;
+            text-transform: uppercase;
+        }
+
+        .logo-friday { color: #ffffff; }
+        .logo-night { color: #ffffff; }
+        .logo-lights { 
+            background: linear-gradient(90deg, var(--accent-cyan), var(--accent-pink), var(--accent-yellow));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .tagline {
+            font-family: 'DM Mono', monospace;
+            font-size: 0.875rem;
+            color: var(--text-secondary);
+        }
+
+        /* Projects Grid */
+        .projects-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 1.5rem;
+        }
+
+        .project-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            padding: 2rem;
+            text-decoration: none;
+            color: inherit;
+            position: relative;
+            overflow: hidden;
+            transition: all 0.3s ease;
+            display: flex;
+            flex-direction: column;
+            min-height: 200px;
+        }
+
+        .project-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+        }
+
+        .project-card:hover {
+            transform: translateY(-4px);
+            border-color: var(--border);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
+        }
+
+        .project-card.cyan::before { background: var(--accent-cyan); }
+        .project-card.pink::before { background: var(--accent-pink); }
+        .project-card.yellow::before { background: var(--accent-yellow); }
+        .project-card.purple::before { background: var(--accent-purple); }
+
+        .project-card.cyan:hover { border-color: var(--accent-cyan); box-shadow: 0 20px 40px rgba(0, 255, 209, 0.15); }
+        .project-card.pink:hover { border-color: var(--accent-pink); box-shadow: 0 20px 40px rgba(255, 0, 107, 0.15); }
+        .project-card.yellow:hover { border-color: var(--accent-yellow); box-shadow: 0 20px 40px rgba(255, 215, 0, 0.15); }
+        .project-card.purple:hover { border-color: var(--accent-purple); box-shadow: 0 20px 40px rgba(153, 102, 255, 0.15); }
+
+        .project-icon {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .project-title {
+            font-size: 1.25rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+        }
+
+        .project-card.cyan .project-title { color: var(--accent-cyan); }
+        .project-card.pink .project-title { color: var(--accent-pink); }
+        .project-card.yellow .project-title { color: var(--accent-yellow); }
+        .project-card.purple .project-title { color: var(--accent-purple); }
+
+        .project-description {
+            font-family: 'DM Mono', monospace;
+            font-size: 0.8rem;
+            color: var(--text-secondary);
+            line-height: 1.5;
+            flex-grow: 1;
+        }
+
+        .project-status {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            margin-top: 1rem;
+            font-family: 'DM Mono', monospace;
+            font-size: 0.7rem;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        .status-dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: var(--accent-green);
+            animation: pulse 2s infinite;
+        }
+
+        .status-dot.static {
+            animation: none;
+            background: var(--text-muted);
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.5; }
+        }
+
+        .arrow {
+            position: absolute;
+            bottom: 1.5rem;
+            right: 1.5rem;
+            font-size: 1.5rem;
+            opacity: 0;
+            transform: translateX(-10px);
+            transition: all 0.3s ease;
+        }
+
+        .project-card:hover .arrow {
+            opacity: 1;
+            transform: translateX(0);
+        }
+
+        .project-card.cyan .arrow { color: var(--accent-cyan); }
+        .project-card.pink .arrow { color: var(--accent-pink); }
+        .project-card.yellow .arrow { color: var(--accent-yellow); }
+        .project-card.purple .arrow { color: var(--accent-purple); }
+
+        /* Footer */
+        .footer {
+            text-align: center;
+            margin-top: 3rem;
+            font-family: 'DM Mono', monospace;
+            font-size: 0.75rem;
+            color: var(--text-muted);
+        }
+
+        /* Sections */
+        .section {
+            margin-bottom: 2.5rem;
+        }
+
+        .section-heading {
+            font-family: 'DM Mono', monospace;
+            font-size: 0.8rem;
+            font-weight: 500;
+            text-transform: uppercase;
+            letter-spacing: 0.2em;
+            color: var(--text-muted);
+            margin-bottom: 1rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .projects-grid.single {
+            grid-template-columns: 1fr;
+            max-width: 50%;
+        }
+
+        @media (max-width: 700px) {
+            .projects-grid.single {
+                max-width: 100%;
+            }
+        }
+
+        /* Responsive */
+        @media (max-width: 700px) {
+            .projects-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .logo-main {
+                font-size: 2rem;
+            }
+            
+            .project-card {
+                min-height: auto;
+                padding: 1.5rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            body {
+                padding: 1rem;
+            }
+            
+            .header {
+                margin-bottom: 2rem;
+            }
+            
+            .logo-main {
+                font-size: 1.5rem;
+            }
+            
+            .project-title {
+                font-size: 1.1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header class="header">
+            <div class="logo">
+                <span class="logo-text">Projects Hub</span>
+                <div class="logo-main">
+                    <span class="logo-friday">FRIDAY</span>
+                    <span class="logo-night">NIGHT</span>
+                    <span class="logo-lights">LIGHTS.</span>
+                </div>
+            </div>
+            <p class="tagline">The UK's Healthiest Night Out</p>
+        </header>
+
+        <div class="section">
+            <h2 class="section-heading">Finance</h2>
+            <div class="projects-grid">
+                <a href="https://rtw-tracker.netlify.app" target="_blank" class="project-card cyan">
+                    <div class="project-icon">📊</div>
+                    <h2 class="project-title">RTW Tracker</h2>
+                    <p class="project-description">Run The Wharf 2026 ticket sales tracker. Weekly progress, revenue projections, and corporate bookings.</p>
+                    <div class="project-status">
+                        <span class="status-dot"></span>
+                        <span style="color: var(--accent-green);">Live</span>
+                    </div>
+                    <span class="arrow">→</span>
+                </a>
+
+                <a href="#" class="project-card pink">
+                    <div class="project-icon">💰</div>
+                    <h2 class="project-title">Run Club Financials</h2>
+                    <p class="project-description">FNL Run Club financial analysis. Revenue breakdown, membership tiers, and growth projections.</p>
+                    <div class="project-status">
+                        <span class="status-dot static"></span>
+                        <span style="color: var(--text-muted);">Coming Soon</span>
+                    </div>
+                    <span class="arrow">→</span>
+                </a>
+            </div>
+        </div>
+
+        <div class="section">
+            <h2 class="section-heading">Brand</h2>
+            <div class="projects-grid single">
+                <a href="#" class="project-card yellow">
+                    <div class="project-icon">🎨</div>
+                    <h2 class="project-title">Website Redesign</h2>
+                    <p class="project-description">fridaynightlights.run refresh. Brand updates, improved UX, and new event pages.</p>
+                    <div class="project-status">
+                        <span class="status-dot static"></span>
+                        <span style="color: var(--text-muted);">Coming Soon</span>
+                    </div>
+                    <span class="arrow">→</span>
+                </a>
+            </div>
+        </div>
+
+        <footer class="footer">
+            <p>Friday Night Lights © 2026</p>
+        </footer>
+    </div>
+</body>
+</html>
