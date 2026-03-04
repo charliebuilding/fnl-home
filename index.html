@@ -238,6 +238,45 @@
             max-width: 50%;
         }
 
+        /* Dropdown */
+        .dropdown-container {
+            max-width: 400px;
+        }
+
+        .pitch-dropdown {
+            width: 100%;
+            padding: 1rem 1.5rem;
+            font-family: 'DM Mono', monospace;
+            font-size: 0.9rem;
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            color: var(--text-primary);
+            cursor: pointer;
+            appearance: none;
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24' fill='none' stroke='%239090a0' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E");
+            background-repeat: no-repeat;
+            background-position: right 1rem center;
+            background-size: 1.2rem;
+            transition: all 0.3s ease;
+        }
+
+        .pitch-dropdown:hover {
+            border-color: var(--accent-cyan);
+            box-shadow: 0 0 20px rgba(0, 255, 209, 0.1);
+        }
+
+        .pitch-dropdown:focus {
+            outline: none;
+            border-color: var(--accent-cyan);
+        }
+
+        .pitch-dropdown option {
+            background: var(--bg-card);
+            color: var(--text-primary);
+            padding: 0.5rem;
+        }
+
         @media (max-width: 700px) {
             .projects-grid.single {
                 max-width: 100%;
@@ -344,6 +383,19 @@
                     </div>
                     <span class="arrow">→</span>
                 </a>
+            </div>
+        </div>
+
+        <div class="section">
+            <h2 class="section-heading">Sales Pitches</h2>
+            <div class="dropdown-container">
+                <select class="pitch-dropdown" onchange="if(this.value) window.open(this.value, '_blank')">
+                    <option value="">Select a pitch...</option>
+                    <option value="#">Ministry of Sound</option>
+                    <option value="#">Salt</option>
+                    <option value="#">SAP</option>
+                    <option value="#">ThirdSpace</option>
+                </select>
             </div>
         </div>
 
